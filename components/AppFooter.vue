@@ -1,9 +1,12 @@
 <script setup lang="ts">
-const redirect = () =>
-  navigateTo("https://www.youtube.com/watch?v=GtL1huin9EE", {
-    external: true,
-    open: { target: "_blank" },
-  });
+const toggleCedricMode = () => {
+  cedricMode.value = !cedricMode.value;
+};
+
+const rand = (max: number): number => Math.floor(Math.random() * (max + 1));
+const getEmoji = () => ["💣", "❤️", "🦅", "🗽"][rand(3)];
+
+const cedricMode = ref(false);
 </script>
 
 <template>
@@ -12,8 +15,8 @@ const redirect = () =>
       Made with
       <span
         class="transition ease-in-out duration-300 inline-block hover:scale-150 cursor-pointer"
-        @click="redirect()"
-        >❤️</span
+        @click="toggleCedricMode()"
+        >{{ getEmoji() }}</span
       >
       by <span class="font-semibold">Sin</span> |
       <span class="font-semibold">🚧 under construction 🚧</span> |
@@ -33,5 +36,11 @@ const redirect = () =>
       Copyright &copy;
       <span class="font-semibold">{{ new Date().getFullYear() }}</span>
     </p>
+  </div>
+  <div
+    class="bg-zinc-900 text-zinc-400 rounded-xl p-4 my-3 text-center"
+    v-if="cedricMode"
+  >
+    <NuxtImg src="/cedric.png" class="w-full h-56 rounded-xl" />
   </div>
 </template>
